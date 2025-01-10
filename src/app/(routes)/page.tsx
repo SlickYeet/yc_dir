@@ -1,5 +1,5 @@
 import { SearchForm } from "@/components/search-form"
-import { StartupCard, StartupCardType } from "@/components/startup-card"
+import { StartupCard, type StartupCardType } from "@/components/startup-card"
 
 interface HomePageProps {
   searchParams: Promise<{ query: string }>
