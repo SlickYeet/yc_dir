@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "predev": "bun typegen",
+    "prebuild": "bun typegen",
+    "typegen": "sanity schema extract --path=./src/sanity/extractjson && sanity typegen generate",
     "shadcn": "bunx --bun shadcn@latest"
   },
   "dependencies": {
@@ -22,6 +25,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sanity": "3",
+    "sanity-plugin-markdown": "^5.0.0",
     "styled-components": "6",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",

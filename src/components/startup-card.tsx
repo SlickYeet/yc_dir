@@ -4,26 +4,13 @@ import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import { formatDate } from "@/lib/utils"
+import { Author, Startup } from "@/sanity/types"
 
-export type StartupCardType = {
-  _id: number
-  title: string
-  description: string
-  views: number
-  category: string
-  image: string
-  author: {
-    _id: number
-    name: string
-  }
-  _createdAt: string
+export type StartupCardType = Omit<Startup, "author"> & {
+  author?: Author
 }
 
-interface StartupCardProps {
-  post: StartupCardType
-}
-
-export function StartupCard({ post }: StartupCardProps) {
+export function StartupCard({ post }: { post: StartupCardType }) {
   const {
     _id,
     title,
@@ -48,14 +35,14 @@ export function StartupCard({ post }: StartupCardProps) {
 
       <div className="flex-between mt-5 gap-5">
         <div className="flex-1">
-          <Link href={`/user/${author._id}`}>
-            <p className="text-16-medium line-clamp-1">{author.name}</p>
+          <Link href={`/user/${author?._id}`}>
+            <p className="text-16-medium line-clamp-1">{author?.name}</p>
           </Link>
           <Link href={`/startup/${_id}`}>
             <h3 className="text-26-semibold line-clamp-1">{title}</h3>
           </Link>
         </div>
-        <Link href={`/user/${author._id}`}>
+        <Link href={`/user/${author?._id}`}>
           <Image
             src="https://placehold.co/48x48"
             alt="placeholder"
@@ -73,7 +60,7 @@ export function StartupCard({ post }: StartupCardProps) {
       </Link>
 
       <div className="flex-between mt-5 gap-3">
-        <Link href={`/?query=${category.toLowerCase()}`}>
+        <Link href={`/?query=${category?.toLowerCase()}`}>
           <p className="text-16-medium">{category}</p>
         </Link>
 
