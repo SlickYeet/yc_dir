@@ -124,7 +124,7 @@
   }
 
   .search-input {
-    @apply h-auto w-full flex-1 font-bold outline-none placeholder:font-semibold placeholder:text-black-100;
+    @apply min-h-[70px] w-full flex-1 bg-transparent font-bold outline-none placeholder:font-semibold placeholder:text-black-100;
   }
 
   .search-btn {
