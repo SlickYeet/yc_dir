@@ -1,15 +1,15 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
-export function cn(...inputs: ClassValue[]) {
+export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs))
 }
 
-export function parseServerActionResponse<T>(response: T) {
+export function parseServerActionResponse<T>(response: T): T {
   return JSON.parse(JSON.stringify(response))
 }
 
-export function formatDate(date: string) {
+export function formatDate(date: string): string {
   return new Date(date).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -17,7 +17,7 @@ export function formatDate(date: string) {
   })
 }
 
-export function formatNumber(number: number) {
+export function formatNumber(number: number): string {
   if (number >= 1000000) {
     return (number / 1000000).toFixed(1).replace(/\.0$/, "") + "M" // Convert to millions
   } else if (number >= 1000) {
@@ -25,4 +25,8 @@ export function formatNumber(number: number) {
   } else {
     return number.toString() // Return the number as is if below 1000
   }
+}
+
+export function formatViewText(views: number): string {
+  return views === 1 ? "View" : "Views"
 }
