@@ -13,6 +13,7 @@
     "shadcn": "bunx --bun shadcn@latest"
   },
   "dependencies": {
+    "@radix-ui/react-avatar": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.1",
     "@sanity/image-url": "1",
     "@sanity/vision": "3",

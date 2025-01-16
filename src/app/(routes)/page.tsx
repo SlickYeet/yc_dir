@@ -18,7 +18,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     query: STARTUPS_QUERY,
     params,
   })
-  const posts = data as StartupCardType[]
+  const startup = data as StartupCardType[]
 
   return (
     <>
@@ -43,9 +43,9 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </p>
 
         <ul className="card-grid mt-7">
-          {posts?.length > 0 ? (
-            posts.map((post: StartupCardType) => (
-              <StartupCard key={post?._id} post={post} />
+          {startup?.length > 0 ? (
+            startup.map((startup: StartupCardType) => (
+              <StartupCard key={startup._id} startup={startup} />
             ))
           ) : (
             <p className="no-results">No startups found</p>

@@ -10,7 +10,7 @@ export type StartupCardType = Omit<Startup, "author"> & {
   author?: Author
 }
 
-export function StartupCard({ post }: { post: StartupCardType }) {
+export function StartupCard({ startup }: { startup: StartupCardType }) {
   const {
     _id,
     title,
@@ -20,7 +20,7 @@ export function StartupCard({ post }: { post: StartupCardType }) {
     image,
     author,
     _createdAt,
-  } = post
+  } = startup
 
   return (
     <li className="startup-card group">

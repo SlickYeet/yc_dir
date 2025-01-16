@@ -157,7 +157,7 @@
   }
 
   .startup-card-skeleton {
-    @apply h-96 w-full rounded-[22px] bg-zinc-400;
+    @apply h-[30rem] w-full rounded-[22px] bg-zinc-400;
   }
 
   /* startupform */
