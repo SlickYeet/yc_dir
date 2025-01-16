@@ -4,7 +4,7 @@ import { createClient } from "next-sanity"
 
 import { apiVersion, dataset, projectId, token } from "../env"
 
-export const WriteClient = createClient({
+export const writeClient = createClient({
   projectId,
   dataset,
   apiVersion,
@@ -12,6 +12,6 @@ export const WriteClient = createClient({
   token,
 })
 
-if (!WriteClient.config().token) {
+if (!writeClient.config().token) {
   throw new Error("Write token is missing")
 }

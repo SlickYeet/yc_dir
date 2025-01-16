@@ -7,7 +7,7 @@ export async function Navbar() {
   const user = session?.user
 
   return (
-    <header className="bg-white px-5 py-3 font-work-sans shadow-sm">
+    <header className="sticky top-0 bg-white/80 px-5 py-3 font-work-sans shadow-sm backdrop-blur-lg">
       <nav className="flex items-center justify-between">
         <Link href="/">
           <Image src="/logo.png" alt="logo" width={144} height={30} />

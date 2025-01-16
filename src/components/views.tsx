@@ -4,7 +4,7 @@ import { Ping } from "@/components/ping"
 import { formatNumber, formatViewText } from "@/lib/utils"
 import { client } from "@/sanity/lib/client"
 import { STARTUP_VIEWS_QUERY } from "@/sanity/lib/queries"
-import { WriteClient } from "@/sanity/lib/write-client"
+import { writeClient } from "@/sanity/lib/write-client"
 
 interface ViewProps {
   id: string
@@ -17,7 +17,8 @@ export async function Views({ id }: ViewProps) {
 
   after(
     async () =>
-      await WriteClient.patch(id)
+      await writeClient
+        .patch(id)
         .set({ views: views + 1 })
         .commit(),
   )
@@ -29,7 +30,7 @@ export async function Views({ id }: ViewProps) {
       </div>
       <p className="view-text">
         <span className="font-black">
-          {formatNumber(views)} {formatViewText(views)}
+          {formatNumber(views ?? 0)} {formatViewText(views)}
         </span>
       </p>
     </div>

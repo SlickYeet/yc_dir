@@ -1,5 +1,6 @@
 import { SearchForm } from "@/components/search-form"
 import { StartupCard, type StartupCardType } from "@/components/startup-card"
+import { auth } from "@/lib/auth"
 import { sanityFetch, SanityLive } from "@/sanity/lib/live"
 import { STARTUPS_QUERY } from "@/sanity/lib/queries"
 
@@ -10,6 +11,8 @@ interface HomePageProps {
 export default async function HomePage({ searchParams }: HomePageProps) {
   const query = (await searchParams).query
   const params = { search: query || null }
+
+  const session = await auth()
 
   const { data } = await sanityFetch({
     query: STARTUPS_QUERY,

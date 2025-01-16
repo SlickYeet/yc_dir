@@ -44,7 +44,7 @@ export default async function StartupDetails({ params }: StartupPageProps) {
         <img
           src={post.image!}
           alt="thumbnail"
-          className="h-auto w-full rounded-xl"
+          className="h-auto max-h-[640px] w-full rounded-xl object-cover"
         />
 
         <div className="mx-auto mt-10 max-w-4xl space-y-5">

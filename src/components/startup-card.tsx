@@ -44,8 +44,8 @@ export function StartupCard({ post }: { post: StartupCardType }) {
         </div>
         <Link href={`/user/${author?._id}`}>
           <Image
-            src="https://placehold.co/48x48"
-            alt="placeholder"
+            src={author?.image!}
+            alt={author?.name!}
             width={48}
             height={48}
             className="rounded-full"
@@ -55,18 +55,22 @@ export function StartupCard({ post }: { post: StartupCardType }) {
 
       <Link href={`/startup/${_id}`}>
         <p className="startup-card-desc">{description}</p>
-
-        <img src={image} alt="placeholder" className="startup-card-img" />
       </Link>
 
-      <div className="flex-between mt-5 gap-3">
-        <Link href={`/?query=${category?.toLowerCase()}`}>
-          <p className="text-16-medium">{category}</p>
+      <div className="startup-card-footer">
+        <Link href={`/startup/${_id}`}>
+          <img src={image} alt={title} className="startup-card-img" />
         </Link>
 
-        <Button className="startup-card-btn" asChild>
-          <Link href={`/startup/${_id}`}>Details</Link>
-        </Button>
+        <div className="flex-between">
+          <Link href={`/?query=${category?.toLowerCase()}`}>
+            <p className="text-16-medium">{category}</p>
+          </Link>
+
+          <Button className="startup-card-btn" asChild>
+            <Link href={`/startup/${_id}`}>Details</Link>
+          </Button>
+        </div>
       </div>
     </li>
   )
