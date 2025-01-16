@@ -226,4 +226,7 @@
 
 #sentry-feedback {
   --inset: auto auto 0 0;
+  --background: black;
+  --foreground: white;
+  --accent-background: #ee2b69;
 }
