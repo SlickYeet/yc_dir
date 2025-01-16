@@ -40,7 +40,7 @@ export async function Navbar() {
               >
                 <Button
                   type="submit"
-                  variant="outline"
+                  variant="secondary"
                   className="rounded-full"
                 >
                   <LogOutIcon />

@@ -37,8 +37,8 @@ export default async function UserPage({ params }: UserPageProps) {
           </div>
 
           <Image
-            src={user.image}
-            alt={user.name}
+            src={user.image ?? ""}
+            alt={user.name ?? ""}
             width={220}
             height={220}
             className="profile-image"

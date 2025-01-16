@@ -1,6 +1,5 @@
 import { SearchForm } from "@/components/search-form"
 import { StartupCard, type StartupCardType } from "@/components/startup-card"
-import { auth } from "@/lib/auth"
 import { sanityFetch, SanityLive } from "@/sanity/lib/live"
 import { STARTUPS_QUERY } from "@/sanity/lib/queries"
 
@@ -12,13 +11,11 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const query = (await searchParams).query
   const params = { search: query || null }
 
-  const session = await auth()
-
   const { data } = await sanityFetch({
     query: STARTUPS_QUERY,
     params,
   })
-  const startup = data as StartupCardType[]
+  const startups = data as StartupCardType[]
 
   return (
     <>
@@ -43,8 +40,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </p>
 
         <ul className="card-grid mt-7">
-          {startup?.length > 0 ? (
-            startup.map((startup: StartupCardType) => (
+          {startups?.length > 0 ? (
+            startups.map((startup: StartupCardType) => (
               <StartupCard key={startup._id} startup={startup} />
             ))
           ) : (

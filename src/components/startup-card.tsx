@@ -44,8 +44,8 @@ export function StartupCard({ startup }: { startup: StartupCardType }) {
         </div>
         <Link href={`/user/${author?._id}`}>
           <Image
-            src={author?.image!}
-            alt={author?.name!}
+            src={author?.image ?? ""}
+            alt={author?.name ?? ""}
             width={48}
             height={48}
             className="rounded-full"
@@ -59,7 +59,13 @@ export function StartupCard({ startup }: { startup: StartupCardType }) {
 
       <div className="startup-card-footer">
         <Link href={`/startup/${_id}`}>
-          <img src={image} alt={title} className="startup-card-img" />
+          <Image
+            src={image!}
+            alt={title!}
+            width={1280}
+            height={720}
+            className="startup-card-img"
+          />
         </Link>
 
         <div className="flex-between">

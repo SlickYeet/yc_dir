@@ -4,11 +4,15 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
+import { StartupCard, StartupCardType } from "@/components/startup-card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Views } from "@/components/views"
 import { formatDate } from "@/lib/utils"
 import { client } from "@/sanity/lib/client"
-import { STARTUP_BY_ID_QUERY } from "@/sanity/lib/queries"
+import {
+  PLAYLIST_BY_SLUG_QUERY,
+  STARTUP_BY_ID_QUERY,
+} from "@/sanity/lib/queries"
 
 const md = markdownit()
 
@@ -27,7 +31,19 @@ interface StartupPageProps {
 export default async function StartupDetails({ params }: StartupPageProps) {
   const { id } = await params
 
-  const post = await client.fetch(STARTUP_BY_ID_QUERY, { id })
+  /**
+   * ? Typescript is really upset about `select`
+   * @error Property 'select' does not exist on type 'null'.ts(2339)
+   * * The query works as intended
+   */
+  // @ts-expect-error: Typescript is really upset about select
+  const [post, { select: editorPicks }] = await Promise.all([
+    await client.fetch(STARTUP_BY_ID_QUERY, { id }),
+    await client.fetch(PLAYLIST_BY_SLUG_QUERY, {
+      slug: "editor-picks",
+    }),
+  ])
+
   if (!post) return notFound()
 
   const parsedContent = md.render(post.pitch || "")
@@ -41,9 +57,11 @@ export default async function StartupDetails({ params }: StartupPageProps) {
       </section>
 
       <section className="section-container">
-        <img
+        <Image
           src={post.image!}
-          alt="thumbnail"
+          alt={post.title!}
+          width={1920}
+          height={1080}
           className="h-auto max-h-[640px] w-full rounded-xl object-cover"
         />
 
@@ -54,8 +72,8 @@ export default async function StartupDetails({ params }: StartupPageProps) {
               className="mb-3 flex items-center gap-2"
             >
               <Image
-                src={post.author?.image!}
-                alt={post.author?.name!}
+                src={post.author?.image ?? ""}
+                alt={post.author?.name ?? ""}
                 width={64}
                 height={64}
                 className="rounded-full drop-shadow-lg"
@@ -89,9 +107,17 @@ export default async function StartupDetails({ params }: StartupPageProps) {
 
         <hr className="divider" />
 
-        {/*
-        // TODO: EDITOR SELECTED STARTUPS
-        */}
+        {editorPicks?.length > 0 ? (
+          <div className="mx-auto max-w-4xl">
+            <p className="text-30-semibold">Editor Picks</p>
+
+            <ul className="card-grid-sm mt-7">
+              {editorPicks.map((startup: StartupCardType, i: number) => (
+                <StartupCard key={i} startup={startup} />
+              ))}
+            </ul>
+          </div>
+        ) : null}
 
         <Suspense fallback={<Skeleton className="view-skeleton" />}>
           <Views id={id} />
