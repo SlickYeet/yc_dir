@@ -12,7 +12,7 @@ export const formSchema = z.object({
     .max(20, "Category is too long. Max 20 characters at most"),
   link: z
     .string()
-    .url("Invalid Image URL")
+    .url("Invalid Image URL. ")
     .refine(async (url) => {
       try {
         const res = await fetch(url, { method: "HEAD" })
