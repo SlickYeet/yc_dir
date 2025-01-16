@@ -10,6 +10,7 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { createPitch } from "@/lib/actions"
 import { formSchema } from "@/lib/validation"
 
 export function StartupForm() {
@@ -32,20 +33,17 @@ export function StartupForm() {
 
       await formSchema.parseAsync(formValues)
 
-      console.log(formValues)
+      const result = await createPitch(prevState, formData, pitch)
 
-      // const result = await createIdea(prevState, formData, pitch)
-      //   console.log(result)
+      if (result.status === "SUCCESS") {
+        toast.success("Success:", {
+          description: "Your startup pitch has been created successfully",
+        })
 
-      //   if (result.status === "SUCCESS") {
-      //     toast.success("Success:", {
-      //       description: "Your startup pitch has been created successfully",
-      //     })
+        router.push(`/startup/${result.id}`)
+      }
 
-      //     router.push(`/startup/${result.id}`)
-      //   }
-
-      //   return result
+      return result
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors = error.flatten().fieldErrors
